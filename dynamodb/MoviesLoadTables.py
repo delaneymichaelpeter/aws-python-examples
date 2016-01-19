@@ -17,43 +17,6 @@ movie_table = dynamodb.Table('Movies')
 print("Movie Table=", movie_table )
 print("")
 
-"""
-table_name = 'Movies'
-if table_name not in all_tables['TableNames']:
-    print("Table Movies DOES NOT Exist")
-
-    # Create Movie Table
-    print("Create Movies Table")
-    movie_table = client.create_table(
-        TableName='Movies',
-        KeySchema=[
-            {
-		'AttributeName' : 'year',
-                'KeyType'       : 'HASH'  
-            },
-	    {
-               'AttributeName' : 'title',
-               'KeyType'       : 'RANGE' 
-            }
-        ],
-        AttributeDefinitions=[
-            {
-               'AttributeName' : 'year',
-               'AttributeType' : 'N'  
-            },
-            {
-              'AttributeName' : 'title',
-              'AttributeType' : 'S' 
-            }
-        ],
-       ProvisionedThroughput={
-          'ReadCapacityUnits'  : 1,
-          'WriteCapacityUnits' : 1
-       })	
-    print("Table create status=",  movie_table )
-    print("Sleep wait for table to be ACTIVE")
-    time.sleep(240) # Sleep five seconds before creating
-"""
 
 # Read data into Movies table
 with open("moviedata.json") as json_file:

@@ -52,8 +52,9 @@ if table_name not in all_tables['TableNames']:
        })	
     print("Table create status=",  movie_table )
     print("Sleep wait for table to be ACTIVE")
-    time.sleep(240) # Sleep five seconds before creating
+    #time.sleep(240) # Sleep five seconds before creating
 
+"""
 # Read data into Movies table
 with open("moviedata.json") as json_file:
     movies = json.load(json_file, parse_float = decimal.Decimal )
@@ -62,7 +63,6 @@ with open("moviedata.json") as json_file:
         title = movie['title']
         info  = movie['info']
         print("ADDING MOVIE:", year, title, info, "\n" )
-"""
         movie_table.put_item(
             Item={ 
                 'year' : year,
@@ -70,10 +70,7 @@ with open("moviedata.json") as json_file:
                 'info' : info,
             }
         )
-"""
 
-
-"""
 # Put some data into our Table
 movies = movie_table.put_item(
 	Item={
