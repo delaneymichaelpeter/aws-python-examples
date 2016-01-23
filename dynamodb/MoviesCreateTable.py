@@ -1,4 +1,4 @@
-#from __future__ import print_function
+from __future__ import print_function
 import boto3
 import time
 import json
@@ -50,9 +50,12 @@ if table_name not in all_tables['TableNames']:
           'ReadCapacityUnits'  : 1,
           'WriteCapacityUnits' : 1
        })	
+    movie_table.meta.client.get_waiter('table_exists').wait(TableName='Movies')
     print("Table create status=",  movie_table )
-    print("Sleep wait for table to be ACTIVE")
-    #time.sleep(240) # Sleep five seconds before creating
+else: 
+    print("Table Exits")
+
+
 
 """
 # Read data into Movies table

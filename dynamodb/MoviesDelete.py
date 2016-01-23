@@ -13,26 +13,46 @@ class DecimalEncoder(json.JSONEncoder):
                 return int(o)
             return super(DecimalEncoder, self).default(o)
 
-dynamodb = boto3.resource('dynamodb')
-table = "The Big New Move"
-year  = 2015
+dynamodb    = boto3.resource('dynamodb')
+movie_table = dynamodb.Table('Movies')
+title       = "House"
+year        = 1986
 
 try:
-    response = table.delete_item(
+    response = movie_table.delete_item(
         Key={
-            'year' : year,
+            'year'  : year,
             'title' : title
-        },
-        ConditionExpression="info.rating <= :val", 
-        ExpressionAttributeValues={ 
-            ":val" : decimal.Decimal(5)
-        }
-)
+        })
 except ClientError as e:
     if e.response['Error']['Code'] == "ConditionalCheckFailedException":
         print(e.response['Error']['Message'])
     else:
         raise
 else:
-    print("PutItme succeeded:")
+    print("DeleteItem succeeded:")
     print(json.dumps(response, cls=DecimalEncoder))
+
+
+"""
+ NOT WORKING
+try:
+    response = movie_table.delete_item(
+        Key={
+            'year'  : year,
+            'title' : title
+        },
+        ConditionExpression="info.rating <= :val", 
+        ExpressionAttributeValues={ 
+            ":val" : decimal.Decimal(5)
+        })
+except ClientError as e:
+    if e.response['Error']['Code'] == "ConditionalCheckFailedException":
+        print(e.response['Error']['Message'])
+    else:
+        raise
+else:
+    print("DeleteItem succeeded:")
+    print(json.dumps(response, cls=DecimalEncoder))
+"""
+

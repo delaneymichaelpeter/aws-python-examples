@@ -25,6 +25,10 @@ movie_table = dynamodb.Table('Movies')
 print("Movie Table=", movie_table )
 print("Print Movies in 1985")
 
+#number_of_movies = movie_table.item_count()
+number_of_movies = movie_table.query_count()
+print("Number of Movies=", number_of_movies )
+
 response = movie_table.query(
     KeyConditionExpression=Key('year').eq(1986)
 )

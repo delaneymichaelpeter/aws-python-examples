@@ -1,4 +1,4 @@
-from __future__ import print_function
+
 import boto3
 import time
 import json
@@ -29,7 +29,7 @@ print("Print Movies in 1985")
 response = movie_table.query(
     ProjectionExpression="#yr, title, info.genres, info.actors[0]",
     ExpressionAttributeNames={"#yr" : "year"},
-    KeyConditionExpression=Key('year').eq(1992) & Key('title').between('A', 'L')
+    KeyConditionExpression=Key('year').eq(2013) & Key('title').between('A', 'L')
 )
 
 for i in response['Items']:
